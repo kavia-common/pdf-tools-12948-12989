@@ -1,82 +1,50 @@
-# Lightweight React Template for KAVIA
+# PDF Tools Monolith
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A modern React + Node.js monolith for PDF manipulation with PostgreSQL storage.
 
 ## Features
+- Create PDFs from text (with live preview)
+- Compress PDFs (levels: low/medium/high)
+- Merge multiple PDFs with reordering
+- Split PDFs by pages/ranges
+- Optional user authentication (email/password)
+- File history per user with expiring download links
+- Logs and basic monitoring
+- Help/resources UI
+- Privacy-first: signed download links, limited logging, periodic cleanup
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+## Quick Start
 
-## Getting Started
+1) Configure environment
+- Copy `.env.example` to `.env` and set values (PostgreSQL, JWT secret, etc.)
+- Ensure PostgreSQL is running and database exists.
 
-In the project directory, you can run:
+2) Install
+- `npm install`
+- This also installs server dependencies (postinstall hook).
+- Run migrations: `npm run migrate`
 
-### `npm start`
+3) Run
+- Backend: `npm run start:server` (port 4000)
+- Frontend: `npm start` (port 3000, proxy to server)
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Or run both concurrently (requires DB already configured):
+- `npm run dev`
 
-### `npm test`
+4) Build client
+- `npm run build`
 
-Launches the test runner in interactive watch mode.
+## API
+See SERVER_README.md for endpoint details.
 
-### `npm run build`
+## Security & Compliance
+- httpOnly cookies for auth
+- Server-side sessions with expiration
+- File uploads restricted to PDFs and size-limited
+- Download links signed and time-limited
+- Logs stored in DB with minimal content
+- Use environment variables; never commit secrets
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Premium Gating
+The schema includes `is_premium`. Use it to gate advanced capabilities if desired.
 
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
-
-### Components
-
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
